@@ -16,39 +16,36 @@
 			</tr>
 			
 				<?php
-					$categoriaDAO = new CategoriaDAO();
-					$retorno = $categoriaDAO->buscar_todas_categorias();
-					if(is_array($retorno))
+										
+					foreach($retorno as $dados)
 					{
-						foreach($retorno as $dados)
+						echo "<tr>";
+						echo "<td>{$dados->descritivo}</td>";
+						echo "<td>{$dados->status}</td>";
+						echo "<td>
+						
+						<a class='btn btn-warning' href='index.php?controle=categoriaController&metodo=alterar&id={$dados->idcategoria}'>Alterar</a>
+						
+						&nbsp;&nbsp;
+						
+						<a class='btn btn-danger' href=index.php?controle=categoriaController&metodo=excluir&id={$dados->idcategoria}'>Excluir</a>
+						
+						&nbsp;&nbsp;";
+						
+						if($dados->status == "Ativo")
 						{
-							echo "<tr>";
-							echo "<td>{$dados->descritivo}</td>";
-							echo "<td>{$dados->status}</td>";
-							echo "<td>
-							
-							<a href='edit_categoria.php?id={$dados->idcategoria}'>Alterar</a>
-							
-							&nbsp;&nbsp;
-							
-							<a href='excluir.php?id={$dados->idcategoria}'>Excluir</a>
-							
-							&nbsp;&nbsp;";
-							
-							if($dados->status == "Ativo")
-							{
-								echo "<a href='alterar_status.php?id={$dados->idcategoria}&status=Inativo'>Inativar</a>";
-							}
-							else
-							{
-								echo "<a href='alterar_status.php?id={$dados->idcategoria}&status=Ativo'>Ativar</a>";
-							}
-							echo "</td></tr>";
+							echo "<a class='btn btn-secondary' href='index.php?controle=categoriaController&metodo=inativar&id={$dados->idcategoria}&status=Inativo'>Inativar</a>";
 						}
+						else
+						{
+							echo "<a class='btn btn-success' href='index.php?controle=categoriaController&metodo=ativar&id={$dados->idcategoria}&status=Ativo'>Ativar</a>";
+						}
+						echo "</td></tr>";
 					}
+					
 				?>
 		</table>
-		<br><br><a href="form_categoria.html">Nova Categoria</a>
+		<br><br><a class='btn btn-primary' href="index.php?controle=categoriaController&metodo=inserir">Nova Categoria</a>
 <?php
 	require_once "rodape.html";
 ?>

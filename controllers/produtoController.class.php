@@ -8,9 +8,15 @@ require_once "models/Produto.class.php";
 
 class produtoController
 {
+	private $parm;
+	public function __construct()
+	{
+		$this->parm = Conexao::getInstancia();
+	}
+
     public function listar()
     {
-        $produtoDAO = new produtoDAO();
+        $produtoDAO = new produtoDAO($this->parm);
         $retorno = $produtoDAO->buscar_todos_produtos();
         require_once "views/listar_produtos.php";
     }
@@ -41,10 +47,9 @@ class produtoController
 			//inserir no BD
 			$categoria = new categoria($_POST["categoria"]);
 			
-			$produto = new Produto(nome:$_POST["nome"], descricao:$_POST["descricao"], preco:$_POST["preco"], estoque:$_POST["estoque"], imagem:$_FILES["imagem"]["name"],
-                       status:"Ativo", categoria:$categoria);
+			$produto = new Produto(nome:$_POST["nome"], descricao:$_POST["descricao"], preco:$_POST["preco"], estoque:$_POST["estoque"], imagem:$_FILES["imagem"]["name"], status:"Ativo", categoria:$categoria);
 			
-			$produtoDAO = new ProdutoDAO();
+			$produtoDAO = new ProdutoDAO($this->parm);
 			$produtoDAO->inserir_produto($produto);
 			
 			header("location:index.php?controle=produtoController&metodo=listar");
@@ -54,7 +59,7 @@ class produtoController
 	
         $categoria = new Categoria(status:"Ativo");
 				
-        $categoriaDAO = new CategoriaDAO();
+        $categoriaDAO = new CategoriaDAO($this->parm);
 				
         $retorno = $categoriaDAO->buscar_todas_categorias_ativas($categoria);
         
@@ -71,7 +76,7 @@ class produtoController
     public function buscar_Ativos()
     {
         $produto = new Produto(status:"Ativo");
-		$produtoDAO = new ProdutoDAO();
+		$produtoDAO = new ProdutoDAO($this->parm);
 		$retorno = $produtoDAO->buscar_todos_produtos_ativos($produto);
     }
 }
