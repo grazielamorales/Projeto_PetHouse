@@ -46,6 +46,3 @@
 				?>
 		</table>
 		<br><br><a class='btn btn-primary' href="index.php?controle=categoriaController&metodo=inserir">Nova Categoria</a>
-<?php
-	require_once "rodape.html";
-?>
