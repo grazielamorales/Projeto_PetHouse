@@ -63,7 +63,7 @@
 					//buscar a categoria no BD
 					$categoria = new Categoria($_GET["id"]);
 					$categoriaDAO = new CategoriaDAO($this->parm);
-					$ret = $categoriaDAO->buscar_uma_categoria($categoria);
+					$retorno = $categoriaDAO->buscar_uma_categoria($categoria);
 					require_once "views/edit_categoria.php";					
 
 					//alterar no BD a categoria
@@ -71,7 +71,7 @@
 					{
 						$categoria = new Categoria($_POST["idcategoria"], descritivo:$_POST["descritivo"]);
 						$categoriaDAO = new CategoriaDAO($this->parm);
-						$categoriaDAO->alterar_categoria($categoria);
+						$retorno = $categoriaDAO->alterar_categoria($categoria);
 						echo $retorno;						
 					}
 					header("Location:views/listar_categorias.php");

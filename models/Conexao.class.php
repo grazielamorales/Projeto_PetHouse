@@ -20,7 +20,7 @@
 				{
 					echo $e->getCode();
 					echo $e->getMessage();
-					//echo "Problema na conexÃ£o";
+					//echo "Problema na conexao";
 					die();
 				}
 			}//fim do if

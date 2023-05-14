@@ -67,5 +67,5 @@
 		</div>
 	</nav>
 <?php 
-require_once "views/rodape.html";
+require_once "rodape.html";
 ?>

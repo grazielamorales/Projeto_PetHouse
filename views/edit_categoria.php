@@ -17,10 +17,10 @@ require_once "views/cabecalho.php";
 			<div class="card-body">
 				<form action="alterar_categoria.php" method="POST">
 			
-				<input class="form-control"  type="hidden" name="idcategoria" value="<?php echo $ret[0]->idcategoria;?>">
+				<input class="form-control"  type="hidden" name="idcategoria" value="<?php echo $retorno[0]->idcategoria;?>">
 				
 				<label class="form-label">Descritivo:</label>
-				<input type="text" name="descritivo" value="<?php echo $ret[0]->descritivo;?>">
+				<input type="text" name="descritivo" value="<?php echo $retorno[0]->descritivo;?>">
 				<br><br>
 				<input type="submit" value="Alterar" class="btn btn-primary">
 			</form>
