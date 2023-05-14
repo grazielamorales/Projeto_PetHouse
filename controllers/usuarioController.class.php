@@ -9,6 +9,11 @@ if(!isset($_SESSION))
 
 class usuarioController
 {
+    private $parm;
+	public function __construct()
+	{
+		$this->parm = Conexao::getInstancia();
+	}
     public function inserir()
     {
         $msg = array("", "", "", "");
@@ -50,7 +55,7 @@ class usuarioController
             if(!empty($_POST["email"]))
             {
                 $usuario = new usuario(email:$_POST["email"]);
-                $usuarioDAO = new usuarioDAO();
+                $usuarioDAO = new usuarioDAO($this->parm);
                 $retorno = $usuarioDAO->verificar_por_email($usuario);
                 if(count($retorno) > 0)
                 {
@@ -64,7 +69,7 @@ class usuarioController
             {
                 //inserir no BD
                 $usuario = new usuario(0, $_POST["nome"], $_POST["email"], md5($_POST["senha"]), "Cliente");
-                $usuarioDAO = new usuarioDAO();
+                $usuarioDAO = new usuarioDAO($this->parm);
                 $usuarioDAO->inserir($usuario);
 
                  //mostrar login
@@ -99,7 +104,7 @@ class usuarioController
                 //verificar usuario e senha no BD
                 $usuario = new Usuario(email:$_POST["email"], senha:md5($_POST["senha"]));
                 
-                $usuarioDAO = new UsuarioDAO();
+                $usuarioDAO = new UsuarioDAO($this->parm);
                 $retorno = $usuarioDAO->autenticar($usuario);
                 if(is_array($retorno) && count($retorno) > 0)
                 {

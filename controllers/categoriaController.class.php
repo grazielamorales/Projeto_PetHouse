@@ -72,12 +72,12 @@
 						$categoria = new Categoria($_POST["idcategoria"], descritivo:$_POST["descritivo"]);
 						$categoriaDAO = new CategoriaDAO($this->parm);
 						$categoriaDAO->alterar_categoria($categoria);
-						echo $retorno;
-						require_once "views/listar_categorias.php";
+						echo $retorno;						
 					}
+					header("Location:views/listar_categorias.php");
 					
 				}
-				header("location:listar_categorias.php");		
+					
 								
 				
 			}

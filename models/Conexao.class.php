@@ -10,7 +10,7 @@
 		{
 			if(empty(self::$db))
 			{
-				//criar a conexÃ£o
+				//criar a conexao
 				$parametros = "mysql:host=localhost;dbname=pethouse;charset=utf8mb4";
 				try
 				{

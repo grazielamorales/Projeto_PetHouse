@@ -1,22 +1,19 @@
 <?php
 	class vendaDAO extends Conexao
 	{
-		public function __construct()
-		{
-			parent:: __construct();
-		}
+		public function __construct(private $conexao){}	
 		
 		public function inserir_venda($venda)
 		{
-			$this->db->beginTransaction();
+			$this->conexao->beginTransaction();
 			$sql = "INSERT INTO venda (data_venda, idusuario) VALUES(?,?)";
 			try
 			{
-				$stm = $this->db->prepare($sql);
+				$stm = $this->conexao->prepare($sql);
 				$stm->bindValue(1, $venda->getData_venda());
 				$stm->bindValue(2, $venda->getUsuario()->getIdusuario());
 				$stm->execute();
-				$idvenda = $this->db->lastInsertId();
+				$idvenda = $this->conexao->lastInsertId();
 			}
 			catch(PDOException $e)
 			{
@@ -29,7 +26,7 @@
 			{
 				try
 				{
-					$stm = $this->db->prepare($sql);
+					$stm = $this->conexao->prepare($sql);
 					$stm->bindValue(1, $dado->getQuantidade());
 					$stm->bindValue(2, $dado->getPrecoUnitario());
 					$stm->bindValue(3, $dado->getProduto()->getIdproduto());
@@ -39,13 +36,13 @@
 				}
 				catch(PDOException $e)
 				{
-					$this->db->rollback();
-					$this->db = null;
+					$this->conexao->rollback();
+					$this->conexao = null;
 					return "Erro ao inserir itens da venda";
 				}
 			}//fim do foreach
-			$this->db->commit();
-			$this->db = null;
+			$this->conexao->commit();
+			$this->conexao = null;
 			return "Venda com sucesso";
 			
 		}

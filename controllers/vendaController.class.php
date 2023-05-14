@@ -16,6 +16,12 @@
 
     class vendaController
     {
+        private $parm;
+        public function __construct()
+        {
+            $this->parm = Conexao::getInstancia();
+        }
+
         public function mostar_carrinho()
         {
             require_once "views/carrinho.php";
@@ -42,7 +48,7 @@
                 echo $linha;
                 if(!$achou){
                     $produto = new produto(idproduto:$_GET["id"]);
-                    $produtoDAO = new produtoDAO();
+                    $produtoDAO = new produtoDAO($this->parm);
                     $retorno = $produtoDAO->buscar_um_produto($produto);
 
                     
@@ -88,7 +94,7 @@
                     $venda->setItens(0,$dado["quantidade"], $dado["preco"],$produto);
                 }
                 
-                $vendaDAO = new vendaDAO();
+                $vendaDAO = new vendaDAO($this->parm);
                 $retorno = $vendaDAO->inserir_venda($venda);
                 
                 require_once "views/extrato.php";
